@@ -1,4 +1,4 @@
-package org.myorg.quickstart;
+package org.myorg.flink;
 
 import org.apache.flink.streaming.api.functions.AssignerWithPunctuatedWatermarks;
 import org.apache.flink.streaming.api.watermark.Watermark;

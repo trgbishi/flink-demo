@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.myorg.quickstart;
+package org.myorg.flink;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;
@@ -25,7 +25,7 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.util.Collector;
-public class StreamingJob {
+public class BatchJob {
    public static void main(String[] args) throws Exception {
       // the host and the port to connect to
       final String hostname;
@@ -35,7 +35,7 @@ public class StreamingJob {
          hostname = params.has("hostname") ? params.get("hostname") : "localhost";
          port = params.has("port") ? params.getInt("port"):9000;
       } catch (Exception e) {
-         System.err.println("No port specified. Please run 'StreamingJob " +
+         System.err.println("No port specified. Please run 'BatchJob " +
             "--hostname <hostname> --port <port>', where hostname (localhost by default) " +
             "and port is the address of the text server");
          System.err.println("To start a simple text server, run 'netcat -l <port>' and " +
@@ -80,3 +80,4 @@ public class StreamingJob {
       }
    }
 }
+

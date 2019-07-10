@@ -1,4 +1,4 @@
-package org.myorg.quickstart;
+package org.myorg.flink;
 
 
 import org.apache.flink.streaming.api.TimeCharacteristic;
@@ -14,7 +14,8 @@ import java.util.Properties;
  * 该类仅仅是一个kafka的连接测试
  * 当指定了kafka端口及zookeeper端口 及 kafka topic
  * 便能监听kafka该topic的数据
- * 本demo将监听到的数据打印到控制台
+ * 本demo将监听到的数据 过滤 string->double-> 大于5
+ * 再打印到控制台
  */
 public class KafkaDemo {
 
@@ -29,8 +30,10 @@ public class KafkaDemo {
         Properties properties = new Properties();
 
         properties.setProperty("bootstrap.servers", "10.0.99.102:9092");
-        properties.setProperty("zookeeper.connect", "10.0.99.102:2181,10.0.99.102:2182,10.0.99.102:2183");
-        properties.setProperty("group.id", "test-consumer-group");
+        properties.setProperty("zookeeper.connect", "10.0.99.102:2181");
+
+        //一个group.id只能给一个消费者用
+        properties.setProperty("group.id", "flink-cousumer-group");
         FlinkKafkaConsumer<String> myConsumer = new FlinkKafkaConsumer<>("test-kafka-flink", new SimpleStringSchema(),
                 properties);
         myConsumer.assignTimestampsAndWatermarks(new CustomWatermarkEmitter());
@@ -50,6 +53,7 @@ public class KafkaDemo {
 
     }
 }
+
 
 //nohup bin/kafka-server-start.sh config/server.properties > my_kafkaserver.log 2>&1 &
 //bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test-kafka-flink
