@@ -25,3 +25,8 @@
 ###日志输出
     在nc -l 9000的命令行输入字符串
     在web端*Job Manager*->*Stdout* 看日志输出
+
+
+##kafka to flink
+    当同时打开kafkaConsumer与flink接收同一topic数据时，都能收到
+    所以可以实现告警与数据存储并发执行
