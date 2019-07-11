@@ -44,7 +44,7 @@ public class KafkaConsumerrrr implements Runnable {
                     for (ConsumerRecord<String, String> record : msgList) {
                         System.out.println(record);
 //                        if(messageNo%100==0){
-                            System.out.println(messageNo+"=======receive: key = " + record.key() + ", value = " + record.value()+" offset==="+record.offset());
+//                            System.out.println(messageNo+"=======receive: key = " + record.key() + ", value = " + record.value()+" offset==="+record.offset());
 //                        }
                         //当消费了1000条就退出
 //                        if(messageNo%1000==0){

@@ -30,15 +30,16 @@ public class KafkaDemo {
         Properties properties = new Properties();
 
         properties.setProperty("bootstrap.servers", "10.0.99.102:9092");
-        properties.setProperty("zookeeper.connect", "10.0.99.102:2181");
+//        properties.setProperty("zookeeper.connect", "10.0.99.102:2181");
 
-        //一个group.id只能给一个消费者用
-        properties.setProperty("group.id", "flink-cousumer-group");
+        //多个consumer 具有 相同的group.id，分摊所有的记录
+        //但是这里的group.id 没起作用
+        properties.setProperty("group.id", "test-cousumer-group");
         FlinkKafkaConsumer<String> myConsumer = new FlinkKafkaConsumer<>("test-kafka-flink", new SimpleStringSchema(),
                 properties);
         myConsumer.assignTimestampsAndWatermarks(new CustomWatermarkEmitter());
         DataStream<String> keyedStream = env.addSource(myConsumer).filter((s)->{
-            int a = Integer.parseInt(s);
+            Double a = Double.parseDouble(s);
             if(a>5) {
                 return true;
             }
